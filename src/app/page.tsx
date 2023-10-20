@@ -1,10 +1,11 @@
 "use client";
-import { ChakraProvider, Button } from "@chakra-ui/react";
+import { ChakraProvider, Button, useToast } from "@chakra-ui/react";
 import InputWithButton from "./components/InputWithButton";
 import ToggleButton from "./components/ToggleButton";
 import { useState, useEffect } from "react";
 
 const Home = () => {
+  const toast = useToast();
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
   const [numbers, setNumbers] = useState<{ [key: number]: number }>({});
 
@@ -12,22 +13,41 @@ const Home = () => {
     console.log(numbers);
   }, [numbers]);
 
+  const isValidNumber = (numberValue: number) => {
+    if (isNaN(numberValue) || numberValue <= 0) {
+      toast({
+        title: "Input must be a positive number",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+        position: "top-right",
+      });
+      return false;
+    }
+    return true;
+  };
+
   const setTimer = (inputValue: string) => {
     const numberValue = parseFloat(inputValue);
-
-    if (isNaN(numberValue) || numberValue <= 0) {
-      console.log("Invalid input");
+    if (!isValidNumber(numberValue)) {
       return;
     }
-
     setButtonDisabled(!buttonDisabled);
+
+    toast({
+      title: `Interval set for ${numberValue} ${
+        numberValue > 1 ? "seconds" : "second"
+      }`,
+      status: "info",
+      duration: 2000,
+      isClosable: true,
+      position: "top-right",
+    });
   };
 
   const addNumber = (inputValue: string) => {
     const numberValue = parseFloat(inputValue);
-
-    if (isNaN(numberValue) || numberValue < 0) {
-      console.log("Invalid input");
+    if (!isValidNumber(numberValue)) {
       return;
     }
 
@@ -39,6 +59,14 @@ const Home = () => {
         updatedNumbers[numberValue] = 1;
       }
       return updatedNumbers;
+    });
+
+    toast({
+      title: "Number added",
+      status: "info",
+      duration: 2000,
+      isClosable: true,
+      position: "top-right",
     });
   };
 
