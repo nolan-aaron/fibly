@@ -9,7 +9,6 @@ Navigate to the folder where you'd like to clone the project, and then run the f
 ```bash
 git clone https://github.com/nolan-aaron/fibly.git
 cd fibly
-code .
 npm install
 npm run dev
 ```
