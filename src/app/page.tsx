@@ -1,19 +1,16 @@
 "use client";
 import { ChakraProvider, Button, useToast } from "@chakra-ui/react";
+import { useState } from "react";
 import InputWithButton from "./components/InputWithButton";
 import ToggleButton from "./components/ToggleButton";
-import getFibonacciNumbers from "./helpers/fibSequence";
-import { useState, useEffect } from "react";
+import CustomTable from "./components/CustomTable";
+import getFibonacciNumbers from "./helpers/getFibonacciNumbers";
 
 const Home = () => {
   const fibonacciNumbers = getFibonacciNumbers(1000);
   const toast = useToast();
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
   const [numbers, setNumbers] = useState<{ [key: number]: number }>({});
-
-  useEffect(() => {
-    console.log(numbers);
-  }, [numbers]);
 
   const isValidNumber = (numberValue: number) => {
     if (isNaN(numberValue) || numberValue <= 0) {
@@ -85,9 +82,28 @@ const Home = () => {
   const listNumbers = () => {
     const numberEntries = Object.entries(numbers);
 
-    numberEntries.map(([key, value]) =>
-      console.log(`Number: ${key}, Quantity: ${value}`)
-    );
+    if (numberEntries.length <= 0) {
+      toast({
+        title: "No numbers to display",
+        status: "warning",
+        duration: 2000,
+        isClosable: true,
+      });
+    } else {
+      numberEntries.sort((a, b) => b[1] - a[1]);
+      toast({
+        description: (
+          <CustomTable
+            keyTitle={"Number"}
+            valueTitle={"Frequency"}
+            data={numberEntries}
+          />
+        ),
+        status: "info",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
   };
 
   return (
@@ -109,7 +125,11 @@ const Home = () => {
             inputType="number"
             handleClick={addNumber}
           />
-          <ToggleButton firstOption="Resume" secondOption="Halt" />
+          <ToggleButton
+            firstOption="Resume"
+            secondOption="Halt"
+            handleClick={() => console.log("Toggle clicked")}
+          />
           <Button colorScheme="red" onClick={listNumbers}>
             Quit
           </Button>
