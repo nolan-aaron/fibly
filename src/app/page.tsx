@@ -2,9 +2,11 @@
 import { ChakraProvider, Button, useToast } from "@chakra-ui/react";
 import InputWithButton from "./components/InputWithButton";
 import ToggleButton from "./components/ToggleButton";
+import getFibonacciNumbers from "./helpers/fibSequence";
 import { useState, useEffect } from "react";
 
 const Home = () => {
+  const fibonacciNumbers = getFibonacciNumbers(1000);
   const toast = useToast();
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
   const [numbers, setNumbers] = useState<{ [key: number]: number }>({});
@@ -61,13 +63,23 @@ const Home = () => {
       return updatedNumbers;
     });
 
-    toast({
-      title: "Number added",
-      status: "info",
-      duration: 2000,
-      isClosable: true,
-      position: "top-right",
-    });
+    if (fibonacciNumbers.includes(numberValue)) {
+      toast({
+        title: "FIB",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+        position: "top-right",
+      });
+    } else {
+      toast({
+        title: "Number added",
+        status: "info",
+        duration: 2000,
+        isClosable: true,
+        position: "top-right",
+      });
+    }
   };
 
   const listNumbers = () => {
