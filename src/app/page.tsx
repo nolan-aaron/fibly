@@ -6,32 +6,12 @@ import ToggleButton from "./components/ToggleButton";
 import CustomTable from "./components/CustomTable";
 import getFibonacciNumbers from "./helpers/getFibonacciNumbers";
 import isValidNumber from "./helpers/isValidNumber";
+import SetIntervalComponent from "./components/SetIntervalComponent";
 
 const Fibly = () => {
   const fibonacciNumbers = getFibonacciNumbers(1000);
   const toast = useToast();
-  const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
   const [numbers, setNumbers] = useState<{ [key: number]: number }>({});
-
-  const setInterval = (inputValue: string) => {
-    const numberValue = parseFloat(inputValue);
-    if (!isValidNumber(numberValue, 1)) {
-      return toast({
-        title: "Interval must be a positive number",
-        status: "error",
-        position: "top-right",
-      });
-    }
-
-    setButtonDisabled(true);
-    toast({
-      title: `Interval set for ${numberValue} ${
-        numberValue > 1 ? "seconds" : "second"
-      }`,
-      status: "info",
-      position: "top-right",
-    });
-  };
 
   const addNumber = (inputValue: string) => {
     const numberValue = parseFloat(inputValue);
@@ -83,14 +63,7 @@ const Fibly = () => {
     <ChakraProvider>
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
         <div className="max-w-5xl w-full font-mono lg:flex">
-          <InputWithButton
-            buttonText="Set"
-            buttonColour="green"
-            inputPlaceholder="Set interval time (seconds)"
-            inputType="number"
-            disabled={buttonDisabled}
-            handleClick={setInterval}
-          />
+          <SetIntervalComponent />
           <InputWithButton
             buttonText="Add"
             buttonColour="purple"
