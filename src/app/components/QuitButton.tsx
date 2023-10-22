@@ -1,25 +1,25 @@
 import { Button, useToast } from "@chakra-ui/react";
 
-type QuitButtonComponentProps = {
+type QuitButtonProps = {
   data: { [key: string]: number };
   handleClick: (numbers: { [key: string]: number }) => void;
   pageReloadSeconds: number;
 };
 
-const QuitButtonComponent = ({
+const QuitButton = ({
   data,
   handleClick,
   pageReloadSeconds,
-}: QuitButtonComponentProps) => {
+}: QuitButtonProps) => {
   const toast = useToast();
+
   const localClick = () => {
+    handleClick(data);
     toast({
       title: "Thanks for playing!",
-      description: `This page will reload in ${pageReloadSeconds} seconds.`,
+      description: `This page will reload shortly.`,
       status: "success",
-      position: "bottom",
     });
-    handleClick(data);
     setTimeout(() => {
       window.location.reload();
     }, pageReloadSeconds * 1000);
@@ -32,4 +32,4 @@ const QuitButtonComponent = ({
   );
 };
 
-export default QuitButtonComponent;
+export default QuitButton;

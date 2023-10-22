@@ -6,11 +6,11 @@ import InputWithButton from "./InputWithButton";
 import isValidNumber from "../helpers/isValidNumber";
 import isFibonacciNumber from "../helpers/isFibonacciNumber";
 
-type AddNumberComponentProps = {
+type NextNumberProps = {
   setNumbers: Dispatch<SetStateAction<{ [key: string]: number }>>;
 };
 
-const AddNumberComponent = ({ setNumbers }: AddNumberComponentProps) => {
+const NextNumber = ({ setNumbers }: NextNumberProps) => {
   const toast = useToast();
 
   const addNumber = (inputValue: string) => {
@@ -18,7 +18,6 @@ const AddNumberComponent = ({ setNumbers }: AddNumberComponentProps) => {
       return toast({
         title: "Input must be a non-negative number",
         status: "error",
-        position: "top-right",
       });
     }
 
@@ -33,21 +32,21 @@ const AddNumberComponent = ({ setNumbers }: AddNumberComponentProps) => {
     });
 
     if (isFibonacciNumber(BigNumber(inputValue))) {
-      toast({ title: "FIB", status: "success", position: "top-right" });
+      toast({ title: "FIB", status: "success" });
     } else {
-      toast({ title: "Number added", status: "info", position: "top-right" });
+      toast({ title: "Input received", status: "info" });
     }
   };
 
   return (
     <InputWithButton
       buttonText="Add"
-      buttonColour="purple"
-      inputPlaceholder="Input a number"
+      buttonColour="green"
+      inputPlaceholder="Input the next number"
       inputType="number"
       handleClick={addNumber}
     />
   );
 };
 
-export default AddNumberComponent;
+export default NextNumber;

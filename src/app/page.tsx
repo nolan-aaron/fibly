@@ -1,11 +1,10 @@
 "use client";
 import { ChakraProvider, useToast } from "@chakra-ui/react";
 import { useState } from "react";
-import ToggleButton from "./components/ToggleButton";
 import CustomTable from "./components/CustomTable";
-import SetIntervalComponent from "./components/SetIntervalComponent";
-import AddNumberComponent from "./components/AddNumberComponent";
-import QuitButtonComponent from "./components/QuitButtonComponent";
+import NextNumber from "./components/NextNumber";
+import QuitButton from "./components/QuitButton";
+import Stopwatch from "./components/Stopwatch";
 
 const Fibly = () => {
   const [numbers, setNumbers] = useState<{ [key: string]: number }>({});
@@ -14,7 +13,10 @@ const Fibly = () => {
   const listNumbers = (numbers: { [key: string]: number }) => {
     const numberEntries = Object.entries(numbers);
     if (numberEntries.length <= 0) {
-      return toast({ title: "No numbers to display", status: "warning" });
+      return toast({
+        title: "No numbers to display",
+        status: "info",
+      });
     }
 
     numberEntries.sort((a, b) => b[1] - a[1]);
@@ -34,14 +36,10 @@ const Fibly = () => {
     <ChakraProvider>
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
         <div className="max-w-5xl w-full font-mono lg:flex">
-          <SetIntervalComponent />
-          <AddNumberComponent setNumbers={setNumbers} />
-          <ToggleButton
-            firstOption="Resume"
-            secondOption="Halt"
-            handleClick={() => console.log("Toggle clicked")}
+          <Stopwatch onExpireAction={listNumbers} data={numbers} />
+          <NextNumber setNumbers={setNumbers} />
+          <QuitButton handleClick={listNumbers} data={numbers} pageReloadSeconds={5}
           />
-          <QuitButtonComponent handleClick={listNumbers} data={numbers} pageReloadSeconds={5} />
         </div>
       </main>
     </ChakraProvider>
