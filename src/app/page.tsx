@@ -7,7 +7,7 @@ import SetIntervalComponent from "./components/SetIntervalComponent";
 import AddNumberComponent from "./components/AddNumberComponent";
 
 const Fibly = () => {
-  const [numbers, setNumbers] = useState<{ [key: number]: number }>({});
+  const [numbers, setNumbers] = useState<{ [key: string]: number }>({});
   const toast = useToast();
 
   const listNumbers = () => {

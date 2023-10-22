@@ -1,21 +1,20 @@
 "use client";
 import { useToast } from "@chakra-ui/react";
 import { Dispatch, SetStateAction } from "react";
+import { BigNumber } from "bignumber.js";
 import InputWithButton from "./InputWithButton";
 import isValidNumber from "../helpers/isValidNumber";
-import getFibonacciNumbers from "../helpers/getFibonacciNumbers";
+import isFibonacciNumber from "../helpers/isFibonacciNumber";
 
 type AddNumberComponentProps = {
-  setNumbers: Dispatch<SetStateAction<{ [key: number]: number }>>;
+  setNumbers: Dispatch<SetStateAction<{ [key: string]: number }>>;
 };
 
 const AddNumberComponent = ({ setNumbers }: AddNumberComponentProps) => {
-  const fibonacciNumbers = getFibonacciNumbers(1000);
   const toast = useToast();
 
   const addNumber = (inputValue: string) => {
-    const numberValue = parseFloat(inputValue);
-    if (!isValidNumber(numberValue, 0)) {
+    if (!isValidNumber(parseFloat(inputValue), 0)) {
       return toast({
         title: "Input must be a non-negative number",
         status: "error",
@@ -24,16 +23,16 @@ const AddNumberComponent = ({ setNumbers }: AddNumberComponentProps) => {
     }
 
     setNumbers((prevNumbers) => {
-      const updatedNumbers = { ...prevNumbers };
-      if (updatedNumbers.hasOwnProperty(numberValue)) {
-        updatedNumbers[numberValue] += 1;
+      const updatedNumbers: { [key: string]: number } = { ...prevNumbers };
+      if (updatedNumbers.hasOwnProperty(inputValue)) {
+        updatedNumbers[inputValue] += 1;
       } else {
-        updatedNumbers[numberValue] = 1;
+        updatedNumbers[inputValue] = 1;
       }
       return updatedNumbers;
     });
 
-    if (fibonacciNumbers.includes(numberValue)) {
+    if (isFibonacciNumber(BigNumber(inputValue))) {
       toast({ title: "FIB", status: "success", position: "top-right" });
     } else {
       toast({ title: "Number added", status: "info", position: "top-right" });
