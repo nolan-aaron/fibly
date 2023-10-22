@@ -1,6 +1,6 @@
 # Fibly 🌀
 
-This application accepts an ongoing series of user supplied numbers as inputs, and will output notifications when certain conditions are met.
+This application takes a continuous stream of user-supplied numbers as input. If any of these numbers happens to be a Fibonacci number, it will output **FIB**. Additionally, at a regular interval set by the user, it will output the provided numbers in descending order of their frequency.
 
 ## Getting Started
 
@@ -29,5 +29,5 @@ npm test
 1. You now need to make your application “production ready”, and deploy it so that it can be used by customers. Please describe the steps you’d need to take for this to happen.
     > TODO
 
-2. What did you think about this coding test - is there anything you’d suggest in order to improve it?
+1. What did you think about this coding test - is there anything you’d suggest in order to improve it?
     > TODO
