@@ -19,6 +19,7 @@ const QuitButton = ({
       title: "Thanks for playing!",
       description: `This page will reload shortly.`,
       status: "success",
+      position: "top-right",
     });
     setTimeout(() => {
       window.location.reload();
@@ -26,7 +27,12 @@ const QuitButton = ({
   };
 
   return (
-    <Button colorScheme="red" onClick={localClick}>
+    <Button
+      onClick={localClick}
+      colorScheme="red"
+      variant="outline"
+      className="w-full mt-1"
+    >
       Quit
     </Button>
   );

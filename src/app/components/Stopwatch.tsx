@@ -28,19 +28,22 @@ const Stopwatch = ({ onExpireAction, data }: StopwatchProps) => {
 
   const handleSetButton = (inputValue: string) => {
     const numberValue = parseFloat(inputValue);
+    const suffix: string = numberValue > 1 ? "seconds" : "second";
+
     if (!isValidNumber(numberValue, 1)) {
       return toast({
         title: "Interval must be greater than 0 seconds",
-        status: "warning",
+        status: "error",
+        position: "top-right"
       });
     }
+
     setButtonDisabled(true);
     setIntervalTimer(numberValue);
     toast({
-      title: `Interval set for ${numberValue} ${
-        numberValue > 1 ? "seconds" : "second"
-      }`,
+      title: `Interval set to ${numberValue} ${suffix}`,
       status: "info",
+      position: "top-right"
     });
     start();
   };
@@ -58,16 +61,32 @@ const Stopwatch = ({ onExpireAction, data }: StopwatchProps) => {
         buttonText="Set"
         buttonColour="green"
         inputPlaceholder={`${
-          intervalTimer > 0 ? intervalTimer : "Set interval period (seconds)"
+          intervalTimer > 0 ? intervalTimer - seconds : "Set interval (seconds)"
         }`}
         inputType="number"
         disabled={buttonDisabled}
         handleClick={handleSetButton}
       />
       {toggled ? (
-        <Button onClick={handleResumeButton}>Resume</Button>
+        <Button
+          onClick={handleResumeButton}
+          isDisabled={!buttonDisabled}
+          colorScheme="purple"
+          variant="outline"
+          className="w-full mt-1"
+        >
+          Resume
+        </Button>
       ) : (
-        <Button onClick={handleHaltButton}>Halt</Button>
+        <Button
+          onClick={handleHaltButton}
+          isDisabled={!buttonDisabled}
+          colorScheme="purple"
+          variant="outline"
+          className="w-full mt-1"
+        >
+          Halt
+        </Button>
       )}
     </>
   );

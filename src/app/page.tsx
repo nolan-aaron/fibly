@@ -1,5 +1,5 @@
 "use client";
-import { ChakraProvider, useToast } from "@chakra-ui/react";
+import { ChakraProvider, useToast, Heading } from "@chakra-ui/react";
 import { useState } from "react";
 import CustomTable from "./components/CustomTable";
 import NextNumber from "./components/NextNumber";
@@ -16,6 +16,7 @@ const Fibly = () => {
       return toast({
         title: "No numbers to display",
         status: "info",
+        position: "top-right",
       });
     }
 
@@ -29,16 +30,22 @@ const Fibly = () => {
         />
       ),
       status: "info",
+      position: "top-right",
     });
   };
 
   return (
     <ChakraProvider>
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <div className="max-w-5xl w-full font-mono lg:flex">
+      <main className="flex min-h-screen flex-col items-center justify-center mx-10">
+        <div className="max-w-lg w-full font-mono lg:flex flex-col">
+          <Heading as="h1" size="lg" className="mb-5"><code>Fibly</code> 🌀</Heading>
           <Stopwatch onExpireAction={listNumbers} data={numbers} />
+          <div className="my-5"></div>
           <NextNumber setNumbers={setNumbers} />
-          <QuitButton handleClick={listNumbers} data={numbers} pageReloadSeconds={5}
+          <QuitButton
+            handleClick={listNumbers}
+            data={numbers}
+            pageReloadSeconds={3}
           />
         </div>
       </main>
