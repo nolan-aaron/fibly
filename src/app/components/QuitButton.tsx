@@ -4,12 +4,14 @@ type QuitButtonProps = {
   data: { [key: string]: number };
   handleClick: (numbers: { [key: string]: number }) => void;
   pageReloadSeconds: number;
+  disabled: boolean;
 };
 
 const QuitButton = ({
   data,
   handleClick,
   pageReloadSeconds,
+  disabled,
 }: QuitButtonProps) => {
   const toast = useToast();
 
@@ -32,6 +34,7 @@ const QuitButton = ({
       colorScheme="red"
       variant="outline"
       className="w-full mt-1"
+      isDisabled={disabled}
     >
       Quit
     </Button>

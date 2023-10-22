@@ -1,15 +1,16 @@
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useStopwatch } from "react-timer-hook";
 import { useToast, Button, ToastId } from "@chakra-ui/react";
 import InputWithButton from "./InputWithButton";
 import isValidNumber from "../helpers/isValidNumber";
 
 type StopwatchProps = {
+  onStartAction: Dispatch<SetStateAction<boolean>>;
   onExpireAction: (numbers: { [key: string]: number }) => ToastId | undefined;
   data: { [key: string]: number };
 };
 
-const Stopwatch = ({ onExpireAction, data }: StopwatchProps) => {
+const Stopwatch = ({ onStartAction, onExpireAction, data }: StopwatchProps) => {
   const toast = useToast();
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
   const [toggled, setToggled] = useState<boolean>(false);
@@ -34,16 +35,17 @@ const Stopwatch = ({ onExpireAction, data }: StopwatchProps) => {
       return toast({
         title: "Interval must be greater than 0 seconds",
         status: "error",
-        position: "top-right"
+        position: "top-right",
       });
     }
 
     setButtonDisabled(true);
+    onStartAction(true);
     setIntervalTimer(numberValue);
     toast({
       title: `Interval set to ${numberValue} ${suffix}`,
       status: "info",
-      position: "top-right"
+      position: "top-right",
     });
     start();
   };

@@ -8,9 +8,10 @@ import isFibonacciNumber from "../helpers/isFibonacciNumber";
 
 type NextNumberProps = {
   setNumbers: Dispatch<SetStateAction<{ [key: string]: number }>>;
+  disabled: boolean;
 };
 
-const NextNumber = ({ setNumbers }: NextNumberProps) => {
+const NextNumber = ({ setNumbers, disabled }: NextNumberProps) => {
   const toast = useToast();
 
   const addNumber = (inputValue: string) => {
@@ -18,7 +19,7 @@ const NextNumber = ({ setNumbers }: NextNumberProps) => {
       return toast({
         title: "Number must be equal to or greater than 0",
         status: "error",
-        position: "top-right"
+        position: "top-right",
       });
     }
 
@@ -44,6 +45,7 @@ const NextNumber = ({ setNumbers }: NextNumberProps) => {
       inputPlaceholder="Input the next number"
       inputType="number"
       handleClick={addNumber}
+      disabled={disabled}
     />
   );
 };

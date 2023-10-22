@@ -8,6 +8,7 @@ import Stopwatch from "./components/Stopwatch";
 
 const Fibly = () => {
   const [numbers, setNumbers] = useState<{ [key: string]: number }>({});
+  const [intervalSelected, setIntervalSelected] = useState<boolean>(false);
   const toast = useToast();
 
   const listNumbers = (numbers: { [key: string]: number }) => {
@@ -39,14 +40,20 @@ const Fibly = () => {
       <main className="flex min-h-screen flex-col items-center justify-center mx-10">
         <div className="max-w-lg w-full font-mono lg:flex flex-col">
           <Heading as="h1" size="lg" className="mb-5"><code>Fibly</code> 🌀</Heading>
-          <Stopwatch onExpireAction={listNumbers} data={numbers} />
-          <div className="my-5"></div>
-          <NextNumber setNumbers={setNumbers} />
-          <QuitButton
-            handleClick={listNumbers}
+          <Stopwatch
+            onStartAction={setIntervalSelected}
+            onExpireAction={listNumbers}
             data={numbers}
-            pageReloadSeconds={3}
           />
+          <div className="pt-5">
+            <NextNumber setNumbers={setNumbers} disabled={!intervalSelected} />
+            <QuitButton
+              handleClick={listNumbers}
+              data={numbers}
+              pageReloadSeconds={3}
+              disabled={!intervalSelected}
+            />
+          </div>
         </div>
       </main>
     </ChakraProvider>
