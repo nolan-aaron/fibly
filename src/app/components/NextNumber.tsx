@@ -16,8 +16,8 @@ const NextNumber = ({ setNumbers }: NextNumberProps) => {
   const addNumber = (inputValue: string) => {
     if (!isValidNumber(parseFloat(inputValue), 0)) {
       return toast({
-        title: "Input must be a non-negative number",
-        status: "error",
+        title: "Number must be equal to or greater than 0",
+        status: "warning",
       });
     }
 
@@ -34,7 +34,7 @@ const NextNumber = ({ setNumbers }: NextNumberProps) => {
     if (isFibonacciNumber(BigNumber(inputValue))) {
       toast({ title: "FIB", status: "success" });
     } else {
-      toast({ title: "Input received", status: "info" });
+      toast({ title: "Number received", status: "info" });
     }
   };
 

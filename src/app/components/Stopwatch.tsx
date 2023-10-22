@@ -30,8 +30,8 @@ const Stopwatch = ({ onExpireAction, data }: StopwatchProps) => {
     const numberValue = parseFloat(inputValue);
     if (!isValidNumber(numberValue, 1)) {
       return toast({
-        title: "Interval must be a positive number",
-        status: "error",
+        title: "Interval must be greater than 0 seconds",
+        status: "warning",
       });
     }
     setButtonDisabled(true);
@@ -58,7 +58,7 @@ const Stopwatch = ({ onExpireAction, data }: StopwatchProps) => {
         buttonText="Set"
         buttonColour="green"
         inputPlaceholder={`${
-          intervalTimer > 0 ? intervalTimer : "Set interval time (seconds)"
+          intervalTimer > 0 ? intervalTimer : "Set interval period (seconds)"
         }`}
         inputType="number"
         disabled={buttonDisabled}
