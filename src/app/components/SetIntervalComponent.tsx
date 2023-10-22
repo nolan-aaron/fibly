@@ -4,7 +4,7 @@ import { useState } from "react";
 import InputWithButton from "./InputWithButton";
 import isValidNumber from "../helpers/isValidNumber";
 
-const IntervalComponent = () => {
+const SetIntervalComponent = () => {
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
   const toast = useToast();
 
@@ -40,4 +40,4 @@ const IntervalComponent = () => {
   );
 };
 
-export default IntervalComponent;
+export default SetIntervalComponent;

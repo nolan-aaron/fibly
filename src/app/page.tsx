@@ -1,16 +1,17 @@
 "use client";
-import { ChakraProvider, Button, useToast } from "@chakra-ui/react";
+import { ChakraProvider, useToast } from "@chakra-ui/react";
 import { useState } from "react";
 import ToggleButton from "./components/ToggleButton";
 import CustomTable from "./components/CustomTable";
 import SetIntervalComponent from "./components/SetIntervalComponent";
 import AddNumberComponent from "./components/AddNumberComponent";
+import QuitButtonComponent from "./components/QuitButtonComponent";
 
 const Fibly = () => {
   const [numbers, setNumbers] = useState<{ [key: string]: number }>({});
   const toast = useToast();
 
-  const listNumbers = () => {
+  const listNumbers = (numbers: { [key: string]: number }) => {
     const numberEntries = Object.entries(numbers);
     if (numberEntries.length <= 0) {
       return toast({ title: "No numbers to display", status: "warning" });
@@ -40,9 +41,7 @@ const Fibly = () => {
             secondOption="Halt"
             handleClick={() => console.log("Toggle clicked")}
           />
-          <Button colorScheme="red" onClick={listNumbers}>
-            Quit
-          </Button>
+          <QuitButtonComponent handleClick={listNumbers} data={numbers} pageReloadSeconds={5} />
         </div>
       </main>
     </ChakraProvider>
