@@ -39,14 +39,20 @@ const Fibly = () => {
     <ChakraProvider>
       <main className="flex min-h-screen flex-col items-center justify-center mx-10">
         <div className="max-w-lg w-full font-mono lg:flex flex-col">
-          <Heading as="h1" size="lg" className="mb-5"><code>Fibly</code> 🌀</Heading>
+          <Heading as="h1" size="lg" className="mb-5">
+            <code>Fibly</code> 🌀
+          </Heading>
           <Stopwatch
             onStartAction={setIntervalSelected}
             onExpireAction={listNumbers}
             data={numbers}
           />
           <div className="pt-5">
-            <NextNumber setNumbers={setNumbers} disabled={!intervalSelected} />
+            <NextNumber
+              setNumbers={setNumbers}
+              disabled={!intervalSelected}
+              maxFibPosition={1000}
+            />
             <QuitButton
               handleClick={listNumbers}
               data={numbers}

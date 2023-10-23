@@ -5,13 +5,16 @@ import { BigNumber } from "bignumber.js";
 import InputWithButton from "./InputWithButton";
 import isValidNumber from "../helpers/isValidNumber";
 import isFibonacciNumber from "../helpers/isFibonacciNumber";
+const fibonacci = require("fibonacci");
 
 type NextNumberProps = {
   setNumbers: Dispatch<SetStateAction<{ [key: string]: number }>>;
   disabled: boolean;
+  maxFibPosition: number;
 };
 
-const NextNumber = ({ setNumbers, disabled }: NextNumberProps) => {
+const NextNumber = ({ setNumbers, disabled, maxFibPosition }: NextNumberProps) => {
+  const targetFibonacci = fibonacci.iterate(maxFibPosition);
   const toast = useToast();
 
   const addNumber = (inputValue: string) => {
@@ -33,7 +36,9 @@ const NextNumber = ({ setNumbers, disabled }: NextNumberProps) => {
       return updatedNumbers;
     });
 
-    if (isFibonacciNumber(BigNumber(inputValue))) {
+    if (isFibonacciNumber(BigNumber(inputValue)) &&
+      BigNumber(inputValue).comparedTo(targetFibonacci.number) <= 0
+    ) {
       toast({ title: "FIB", status: "success", position: "top-right" });
     }
   };
