@@ -1,6 +1,6 @@
 # Fibly 🌀
 
-This application takes a continuous stream of user-supplied numbers as input. If any of these numbers happens to be a Fibonacci number, it will output **FIB**. Additionally, at a regular interval set by the user, it will output the provided numbers in descending order of their frequency.
+This application takes a continuous stream of user-supplied numbers as input. If any of these numbers happens to be one of the first 1,000 Fibonacci numbers, it will output **FIB**. Additionally, at a regular interval set by the user, it will output the provided numbers in descending order of their frequency.
 
 ## Getting Started
 
